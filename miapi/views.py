@@ -7,11 +7,10 @@ from .models import Ticket
 from .serializers import TodoSerializers
 
 class TodoListApiView(APIView):
-    parser_classes=[permissions.IsAuthenticated]
+    #permissions_classes=[permissions.IsAuthenticated]
 
     def get(self,request, *args, **kwargs):
         todos=Ticket.objects.filter(user=request.user.id)
-        serializer=TodoSerializers(todos,many=True)
-        return Response(serializer,status=status.HTTP_200_ok)
-    
+        serializer=TodoSerializers(todos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
